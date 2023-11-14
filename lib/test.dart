@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'services/build_tools.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,8 +37,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool jokeGood = false;
+  MyTools tools = MyTools();
+  TextEditingController textController = TextEditingController();
+
   Future<Joke> fetchJoke() async {
-    final response = await http.get(Uri.parse('https://v2.jokeapi.dev/joke/Any?type=single'));
+    final response = await http
+        .get(Uri.parse('https://v2.jokeapi.dev/joke/Any?type=single'));
 
     if (response.statusCode == 200) {
       return Joke.fromJson(jsonDecode(response.body));
@@ -72,6 +78,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   Text(
                     'Joke: ${snapshot.data!.joke}',
                     textAlign: TextAlign.center,
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                          value: jokeGood,
+                          onChanged: (value) {
+                            setState(() {
+                              jokeGood = value!;
+                            });
+                          }),
+                      tools.buildGreyText('IS JOKE GOOD?'),
+                      TextButton(
+                          onPressed: () {},
+                          child: tools.buildGreyText('click the checkbox')),
+
+                    ],
+                  ),
+                  SizedBox(
+                    height: 100,
+                    width: 250,
+                    child: tools.buildInputField(textController),
                   ),
                 ],
               );

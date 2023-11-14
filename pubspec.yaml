@@ -33,6 +33,7 @@ dependencies:
   http: ^0.13.3 # Add the latest version of the http package
   intl: ^0.18.1
   flutter_spinkit: ^5.2.0
+  url_launcher: ^6.1.11
 
 
 

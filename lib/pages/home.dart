@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time_demo/services/build_tools.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Map loadingData = {};
   String? flag;
+  MyTools tools = MyTools();
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,16 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       backgroundColor: bgColor,
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_forward),
+            onPressed: () {
+              Navigator.pushNamed(context, '/test');
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -82,7 +94,9 @@ class _HomeState extends State<Home> {
                     )),
                 Expanded(
                   child: Image(
-                      image: AssetImage('assets/${loadingData['flag']}'),
+                      image: AssetImage('assets/${loadingData['flag']}',),
+                    color: const Color.fromRGBO(255, 255, 255, 0.75),
+                      colorBlendMode: BlendMode.modulate,
                   ),
                 ),
               ],
